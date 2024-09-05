@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BC Menu-Bar Colorator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        width: 200px;
+        padding: 10px;
+      }
+      .input-group {
+        margin-bottom: 10px;
+      }
+      .button {
+        margin-top: 5px;
+        width: 100%;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>URL Color Manager</h3>
+
+    <div class="input-group">
+      <label>URL:</label>
+      <input type="text" id="url" placeholder="Enter URL prefix" />
+    </div>
+
+    <div class="input-group">
+      <label>Color:</label>
+      <input type="color" id="color" />
+    </div>
+
+    <button class="button" id="addUrlColor">Add URL</button>
+
+    <h4>Saved BC URLs with Color</h4>
+    <ul id="urlList"></ul>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

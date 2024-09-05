@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Background Color Settings</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .input-group {
+        margin: 10px 0;
+      }
+      .button {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Configure URLs and Colors</h2>
+    <div class="input-group">
+      <label>URL: </label>
+      <input type="text" id="url" placeholder="Enter URL prefix" />
+    </div>
+    <div class="input-group">
+      <label>Color: </label>
+      <input type="color" id="color" />
+    </div>
+    <button id="add">Add URL</button>
+    <ul id="url-list"></ul>
+    <script src="options.js"></script>
+  </body>
+</html>
