@@ -4,13 +4,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const addUrlColorButton = document.getElementById('addUrlColor');
     const urlList = document.getElementById('urlList');
 
+    // Get the current tab's URL and prefill the URL input
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs.length > 0) {
+            let currentUrl = tabs[0].url;
+            // Get the part of the URL before the first "?"
+            let urlWithoutParams = currentUrl.split('?')[0];
+            urlInput.value = urlWithoutParams;  // Prefill the input field
+        }
+    });
+
     // Function to update the displayed list of URL-color pairs
     function updateUrlList(url_dict) {
         urlList.innerHTML = ''; // Clear the list
         for (const [url, color] of Object.entries(url_dict)) {
             const li = document.createElement('li');
             li.innerHTML = `
-                ${url}: <span style="color:${color}; font-weight: bold;">${color}</span>
+                ${url} <span style="color:${color}; font-weight: bold;">${color}</span>
                 <button class="delete-btn" data-url="${url}">x</button>
             `;
             urlList.appendChild(li);
@@ -46,6 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 chrome.storage.sync.set({ url_dict }, () => {
                     updateUrlList(url_dict);  // Update the display list
                     urlInput.value = '';      // Clear the input fields
+
+                    // Send a message to the content script to apply the new color immediately
+                    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                        chrome.tabs.sendMessage(tabs[0].id, { action: 'updateColor', url: url, color: color });
+                    });
                 });
             });
         }
