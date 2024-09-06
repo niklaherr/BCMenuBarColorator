@@ -1,0 +1,20 @@
+{
+    "extensionDescription": {
+      "message": "Change the color of the Business Central Bar on top for different environments and never mix them up again!"
+    },
+    "extensionName": {
+      "message": "Colorador de Barra de Menú BC"
+    },
+    "EnterURL": {
+      "message": "Enter URL prefix"
+    },
+    "AddURL": {
+      "message": "Add URL"
+    },
+    "ColorLbl": {
+      "message": "Color:"
+    },
+    "URLListLbl": {
+      "message": "Saved URLs with Colors"
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "extensionDescriptionLbl": {
+      "message": "Ändere die Farbe der oberen Business Central-Leiste für verschiedene Umgebungen und verwechsle sie nie wieder!"
+    },
+    "extensionNameLbl": {
+      "message": "BC Menüleisten-Kolorierer"
+    },
+    "EnterURLLbl": {
+      "message": "Geben Sie den URL-Präfix ein"
+    },
+    "AddURLLbl": {
+      "message": "URL hinzufügen"
+    },
+    "ColorLbl": {
+      "message": "Farbe:"
+    },
+    "URLListLbl": {
+      "message": "Gespeicherte URLs mit Farben"
+    }
+}
