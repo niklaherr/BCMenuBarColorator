@@ -9,9 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
         urlList.innerHTML = ''; // Clear the list
         for (const [url, color] of Object.entries(url_dict)) {
             const li = document.createElement('li');
-            li.innerHTML = `${url}: <span style="color:${color}; font-weight: bold;">${color}</span>`;
+            li.innerHTML = `
+                ${url}: <span style="color:${color}; font-weight: bold;">${color}</span>
+                <button class="delete-btn" data-url="${url}">x</button>
+            `;
             urlList.appendChild(li);
         }
+
+        // Add event listeners to the delete buttons
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const urlToDelete = event.target.getAttribute('data-url');
+                deleteUrlColor(urlToDelete);
+            });
+        });
     }
 
     // Load existing URLs and colors on page load
@@ -38,4 +50,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Function to delete a URL-color pair
+    function deleteUrlColor(urlToDelete) {
+        chrome.storage.sync.get('url_dict', (data) => {
+            const url_dict = data.url_dict || {};
+
+            // Check if the URL exists, then delete it
+            if (url_dict[urlToDelete]) {
+                delete url_dict[urlToDelete];
+
+                // Save the updated dictionary back to storage
+                chrome.storage.sync.set({ url_dict }, () => {
+                    updateUrlList(url_dict);  // Update the display list
+                });
+            }
+        });
+    }
 });
