@@ -83,3 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('h3').textContent = chrome.i18n.getMessage('extensionNameLbl');
+    document.querySelector('input').textContent = chrome.i18n.getMessage('EnterURLLbl');
+    document.querySelector('button').textContent = chrome.i18n.getMessage('AddURLLbl');
+    document.querySelector('label[for="color"]').textContent = chrome.i18n.getMessage('ColorLbl');
+    document.querySelector('h4').textContent = chrome.i18n.getMessage('URLListLbl');
+});
