@@ -1,14 +1,14 @@
 {
-    "extensionDescription": {
+    "extensionDescriptionLbl": {
       "message": "¡Cambia el color de la barra superior de Business Central para diferentes entornos y nunca los confundas!"
     },
-    "extensionName": {
+    "extensionNameLbl": {
       "message": "BC Menu-Bar Colorator"
     },
-    "EnterURL": {
+    "EnterURLLbl": {
       "message": "Introduzca el prefijo de la URL"
     },
-    "AddURL": {
+    "AddURLLbl": {
       "message": "Añadir URL"
     },
     "ColorLbl": {
