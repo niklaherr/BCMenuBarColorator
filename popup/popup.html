@@ -14,6 +14,14 @@
         margin-top: 5px;
         width: 100%;
       }
+      .delete-btn {
+        background-color: rgba(148, 0, 0, 0.603);
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        padding: 2px 6px;
+      }
       ul {
         list-style-type: none;
         padding: 0;
@@ -24,14 +32,6 @@
         justify-content: space-between;
         align-items: center;
       }
-      .delete-btn {
-        background-color: rgba(148, 0, 0, 0.603);
-        color: white;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        padding: 2px 6px;
-      }
       input[type="text"] {
         width: 100%; 
         padding: 5px;
@@ -41,6 +41,37 @@
         width: 100%;
         padding: 5px;
         box-sizing: content-box;
+      }
+      body {
+      position: relative;
+      }
+      #helpButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        background-color: rgb(73, 73, 247);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #helpWindow {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 10px;
+        width: 250px;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
       }
     </style>
   </head>
@@ -62,6 +93,10 @@
     <h4>Saved URLs with Colors</h4>
     <ul id="urlList"></ul>
 
+    <button id="helpButton">?</button>
+    <div id="helpWindow">
+      <p id="helpTextLbl">Enter the URL prefix to change the color of the Business Central top bar. You can add multiple URLs. By default, the URL is separated at the first '?'. However, you can freely choose up to which character the URL should be recognized. Just copy the start of the URL into the Base-URL field."</p>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

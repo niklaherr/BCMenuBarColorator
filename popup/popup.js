@@ -1,7 +1,11 @@
+// Define constants and variables
 const urlInput = document.getElementById('url');
 const colorInput = document.getElementById('color');
 const addUrlColorButton = document.getElementById('addUrlColor');
 const urlList = document.getElementById('urlList');
+const setupButton = document.getElementById('setupButton');
+const helpButton = document.getElementById('helpButton');
+const helpWindow = document.getElementById('helpWindow');
 
 // Function to delete a URL-color pair
 function deleteUrlColor(urlToDelete) {
@@ -66,6 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUrlList(url_dict);  // Display the saved URL-color pairs
     });
 
+    // Toggle the help window when the help button is clicked
+    helpButton.addEventListener('click', function() {
+        if (helpWindow.style.display === 'none' || helpWindow.style.display === '') {
+            helpWindow.style.display = 'block';
+            helpWindow.innerHTML = chrome.i18n.getMessage('helpTextLbl').replace(/\n/g, '<br>');
+        } else {
+            helpWindow.style.display = 'none';
+        }
+    });
+
     // Add URL-color pair to storage when the button is clicked
     addUrlColorButton.addEventListener('click', () => {
         const url = urlInput.value;
@@ -78,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Save the updated dictionary back to storage
                 chrome.storage.sync.set({ url_dict }, () => {
-                    updateUrlList(url_dict);  // Update the display list
-                    urlInput.value = '';      // Clear the input fields
+                    updateUrlList(url_dict);
+                    urlInput.value = '';
 
                     // Send a message to the content script to apply the new color immediately
                     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
