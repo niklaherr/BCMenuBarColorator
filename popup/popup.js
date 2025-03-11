@@ -58,11 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tabs.length > 0) {
             let currentUrl = tabs[0].url;
             // Get the part of the URL before the first "?"
-            let urlWithoutParams = currentUrl.split('?')[0];
+            let urlWithoutParams = currentUrl.split('?')[0] + '?';
             urlInput.value = urlWithoutParams;  // Prefill the input field
         }
     });
-
 
     // Load existing URLs and colors on page load
     chrome.storage.sync.get('url_dict', (data) => {
