@@ -7,10 +7,13 @@
         const productMenuBar = document.querySelector('[id=product-menu-bar]'); // Select elements with the id "product-menu-bar"
 
         if (productMenuBar) {
+            let longestMatch = null;
             for (const [key, value] of Object.entries(url_dict)) {
                 if (url.startsWith(key)) {
-                    productMenuBar.style.backgroundColor = value;
-                    break; // Stop checking once we find a match
+                    if (longestMatch === null || key.length > longestMatch.length) {
+                        longestMatch = key;
+                        productMenuBar.style.backgroundColor = value;
+                    }
                 }
             }
         }
@@ -27,11 +30,7 @@
         if (message.action === 'updateColor') {
             const { url, color } = message;
 
-            // Apply the new color to the product menu bar immediately
-            const productMenuBar = document.querySelector('[id=product-menu-bar]');
-            if (productMenuBar && window.location.href.startsWith(url)) {
-                productMenuBar.style.backgroundColor = color;
-            }
+            changeBackgroundColor({ [url]: color });
         }
     });
 
