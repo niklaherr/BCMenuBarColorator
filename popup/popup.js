@@ -3,12 +3,11 @@ const urlInput = document.getElementById('url');
 const colorInput = document.getElementById('color');
 const addUrlColorButton = document.getElementById('addUrlColor');
 const urlList = document.getElementById('urlList');
-const setupButton = document.getElementById('setupButton');
 const helpButton = document.getElementById('helpButton');
 const helpWindow = document.getElementById('helpWindow');
 
 // Function to delete a URL-color pair
-function deleteUrlColor(urlToDelete) {
+function deleteUrlKey(urlToDelete) {
     chrome.storage.sync.get('url_dict', (data) => {
         const url_dict = data.url_dict || {};
 
@@ -24,13 +23,30 @@ function deleteUrlColor(urlToDelete) {
     });
 }
 
+// Function to toggle the boolean value for a URL
+function toggleMode(urlToToggle) {
+    chrome.storage.sync.get('url_dict', (data) => {
+        const url_dict = data.url_dict || {};
+
+        if (url_dict[urlToToggle]) {
+            url_dict[urlToToggle][1] = !url_dict[urlToToggle][1]; // Toggle the boolean value
+
+            // Save the updated dictionary back to storage
+            chrome.storage.sync.set({ url_dict }, () => {
+                updateUrlList(url_dict);  // Update the display list
+            });
+        }
+    });
+}
+
 // Function to update the displayed list of URL-color pairs
 function updateUrlList(url_dict) {
     urlList.innerHTML = ''; // Clear the list
-    for (const [url, color] of Object.entries(url_dict)) {
+    for (const [url, [color, darkMode]] of Object.entries(url_dict)) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span style="font-weight: bold; color:${color};">${url}</span>
+            <button class="mode-btn" data-url="${url}">${darkMode ? '&#x1F312;' : '&#x1F314;'}</button>
+            <span style="font-weight: bold; color:${color}; text-align: left; display: inline-block; width: 100%; margin-left: 8px;">${url}</span>
             <button class="delete-btn" data-url="${url}">x</button>
         `;
         urlList.appendChild(li);
@@ -41,7 +57,16 @@ function updateUrlList(url_dict) {
     deleteButtons.forEach(button => {
         button.addEventListener('click', (event) => {
             const urlToDelete = event.target.getAttribute('data-url');
-            deleteUrlColor(urlToDelete);
+            deleteUrlKey(urlToDelete);
+        });
+    });
+
+    // Add event listeners to the mode buttons
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    modeButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const urlToToggle = event.target.getAttribute('data-url');
+            toggleMode(urlToToggle);
         });
     });
 }
@@ -87,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (url && color) {
             chrome.storage.sync.get('url_dict', (data) => {
                 const url_dict = data.url_dict || {};
-                url_dict[url] = color;  // Add or update the URL-color pair
+                url_dict[url] = [color, false];
 
                 // Save the updated dictionary back to storage
                 chrome.storage.sync.set({ url_dict }, () => {
@@ -96,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Send a message to the content script to apply the new color immediately
                     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                        chrome.tabs.sendMessage(tabs[0].id, { action: 'updateColor', url: url, color: color });
+                        chrome.tabs.sendMessage(tabs[0].id, { action: 'updateColor', color: color });
                     });
                 });
             });
