@@ -57,7 +57,7 @@
     // Message listeners
     chrome.runtime.onMessage.addListener((message) => {
         if (message.action === 'updateColor') {
-            applyDarkMode(false);
+            applyDarkMode(message.darkMode); // Apply the dark mode state
             document.querySelector('[id=product-menu-bar]').style.backgroundColor = message.color;
         } else if (message.action === 'refreshStyles') {
             refreshStyles();

@@ -128,11 +128,12 @@ function setupAddUrlColorButton() {
         if (url && color) {
             chrome.storage.sync.get('url_dict', (data) => {
                 const url_dict = data.url_dict || {};
-                url_dict[url] = [color, false];
+                const darkMode = url_dict[url]?.[1] || false; // Preserve dark mode state
+                url_dict[url] = [color, darkMode];
                 chrome.storage.sync.set({ url_dict }, () => {
                     updateUrlList(url_dict);
                     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                        chrome.tabs.sendMessage(tabs[0].id, { action: 'updateColor', color });
+                        chrome.tabs.sendMessage(tabs[0].id, { action: 'updateColor', color, darkMode });
                     });
                 });
             });
