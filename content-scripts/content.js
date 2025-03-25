@@ -1,9 +1,9 @@
 (function() {
     'use strict';
+    const url = window.location.href;
 
     // Function to change the background color based on URL
     function changeBackgroundColor(url_dict) {
-        const url = window.location.href;
         const productMenuBar = document.querySelector('[id=product-menu-bar]'); // Select elements with the id "product-menu-bar"
 
         if (productMenuBar) {
@@ -27,7 +27,6 @@
             if (productMenuBar) {
                 chrome.storage.sync.get('url_dict', (data) => {
                     const url_dict = data.url_dict || {};
-                    const url = window.location.href;
                     for (const [key, value] of Object.entries(url_dict)) {
                         if (url.startsWith(key)) {
                             const originalColor = value[0];
@@ -43,7 +42,6 @@
             if (productMenuBar) {
                 chrome.storage.sync.get('url_dict', (data) => {
                     const url_dict = data.url_dict || {};
-                    const url = window.location.href;
                     for (const [key, value] of Object.entries(url_dict)) {
                         if (url.startsWith(key)) {
                             const originalColor = value[0];
@@ -57,7 +55,6 @@
     }
 
     function invertHexColor(hex) {
-        // Remove the hash if present
         hex = hex.replace('#', '');
         // Convert to RGB, invert each channel, and convert back to hex
         const inverted = (parseInt(hex, 16) ^ 0xFFFFFF).toString(16).padStart(6, '0');
