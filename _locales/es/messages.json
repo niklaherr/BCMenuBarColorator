@@ -18,6 +18,6 @@
       "message": "URLs guardadas con Colores"
     },
     "helpTextLbl": {
-      "message": "Introduzca el prefijo de la URL para cambiar el color de la barra superior de Business Central.\nPuede añadir varias URL. Por defecto, la URL se separa en el primer '?'.\nSin embargo, puede elegir libremente hasta qué carácter debe reconocerse la URL.\nSimplemente copie el inicio de la URL en el campo Base-URL."
+      "message": "Introduzca el prefijo de la URL para cambiar el color de la barra superior de Business Central.\nPuede añadir varias URL. Por defecto, la URL se separa en el primer '?'.\nSin embargo, puede elegir libremente hasta qué carácter debe reconocerse la URL.\nSimplemente copie el inicio de la URL en el campo Base-URL.\nAl hacer clic en la luna, puede activar el modo oscuro."
     }
 }
