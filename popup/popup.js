@@ -96,7 +96,7 @@ function initializeUI() {
             urlInput.value = currentUrl;
             chrome.storage.sync.get('url_dict', (data) => {
                 const url_dict = data.url_dict || {};
-                colorInput.value = url_dict[currentUrl]?.[0] || '#000000';
+                colorInput.value = url_dict[currentUrl]?.[0] || '#282828';
             });
         }
     });
