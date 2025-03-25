@@ -17,7 +17,12 @@ function deleteUrlKey(urlToDelete) {
 
             // Save the updated dictionary back to storage
             chrome.storage.sync.set({ url_dict }, () => {
-                updateUrlList(url_dict);  // Update the display list
+                updateUrlList(url_dict);
+
+                // Send a message to the content script to reapply styles
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: 'refreshStyles' });
+                });
             });
         }
     });
@@ -29,11 +34,16 @@ function toggleMode(urlToToggle) {
         const url_dict = data.url_dict || {};
 
         if (url_dict[urlToToggle]) {
-            url_dict[urlToToggle][1] = !url_dict[urlToToggle][1]; // Toggle the boolean value
+            url_dict[urlToToggle][1] = !url_dict[urlToToggle][1];
 
             // Save the updated dictionary back to storage
             chrome.storage.sync.set({ url_dict }, () => {
-                updateUrlList(url_dict);  // Update the display list
+                updateUrlList(url_dict);
+
+                // Send a message to the content script to reapply styles
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: 'refreshStyles' });
+                });
             });
         }
     });
@@ -41,7 +51,7 @@ function toggleMode(urlToToggle) {
 
 // Function to update the displayed list of URL-color pairs
 function updateUrlList(url_dict) {
-    urlList.innerHTML = ''; // Clear the list
+    urlList.innerHTML = '';
     for (const [url, [color, darkMode]] of Object.entries(url_dict)) {
         const li = document.createElement('li');
         li.innerHTML = `
@@ -82,9 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         if (tabs.length > 0) {
             let currentUrl = tabs[0].url;
-            // Get the part of the URL before the first "?"
             let urlWithoutParams = currentUrl.split('?')[0];
             urlInput.value = urlWithoutParams;  // Prefill the input field
+
+            // Check if the URL exists in url_dict and set the color picker
+            chrome.storage.sync.get('url_dict', (data) => {
+                const url_dict = data.url_dict || {};
+                if (url_dict[urlWithoutParams]) {
+                    colorInput.value = url_dict[urlWithoutParams][0]; // Set saved color
+                } else {
+                    colorInput.value = '#000000'; // Default to black if no color is saved
+                }
+            });
         }
     });
 
@@ -117,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Save the updated dictionary back to storage
                 chrome.storage.sync.set({ url_dict }, () => {
                     updateUrlList(url_dict);
-                    urlInput.value = '';
+                    // Keep the color picker set to the current color instead of resetting
 
                     // Send a message to the content script to apply the new color immediately
                     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

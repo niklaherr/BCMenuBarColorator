@@ -5,7 +5,6 @@
     // Function to change the background color based on URL
     function changeBackgroundColor(url_dict) {
         const productMenuBar = document.querySelector('[id=product-menu-bar]'); // Select elements with the id "product-menu-bar"
-
         if (productMenuBar) {
             let longestMatch = null;
             for (const [key, value] of Object.entries(url_dict)) {
@@ -20,6 +19,7 @@
         }
     }
 
+    // Function to apply dark mode by inverting colors except for the product menu bar
     function applyDarkMode(darkModeOn) {
         const productMenuBar = document.querySelector('[id=product-menu-bar]');
         if (darkModeOn) {
@@ -53,10 +53,8 @@
             }
         }
     }
-
     function invertHexColor(hex) {
         hex = hex.replace('#', '');
-        // Convert to RGB, invert each channel, and convert back to hex
         const inverted = (parseInt(hex, 16) ^ 0xFFFFFF).toString(16).padStart(6, '0');
         return `#${inverted}`;
     }
@@ -74,6 +72,31 @@
             const {color} = message;
             const productMenuBar = document.querySelector('[id=product-menu-bar]'); 
             productMenuBar.style.backgroundColor = color;
+        }
+    });
+    
+    chrome.runtime.onMessage.addListener((message) => {
+        if (message.action === 'refreshStyles') {
+            chrome.storage.sync.get('url_dict', (data) => {
+                const url_dict = data.url_dict || {};
+                const productMenuBar = document.querySelector('[id=product-menu-bar]');
+                if (productMenuBar) {
+                    let matched = false;
+                    for (const [key, value] of Object.entries(url_dict)) {
+                        if (url.startsWith(key)) {
+                            productMenuBar.style.backgroundColor = value[0];
+                            applyDarkMode(value[1]);
+                            matched = true;
+                            break;
+                        }
+                    }
+                    if (!matched) {
+                        // Reset to default color if no match is found
+                        productMenuBar.style.backgroundColor = '#282828';
+                        applyDarkMode(false);
+                    }
+                }
+            });
         }
     });
     
