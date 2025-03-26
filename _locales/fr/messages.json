@@ -18,6 +18,6 @@
       "message": "URL enregistrées avec couleurs"
     },
     "helpTextLbl": {
-      "message": "Entrez le préfixe de l'URL pour changer la couleur de la barre supérieure de Business Central.\nVous pouvez ajouter plusieurs URL. Par défaut, l'URL est séparée au premier '?'.\nCependant, vous pouvez librement choisir jusqu'à quel caractère l'URL doit être reconnue.\nIl suffit de copier le début de l'URL dans le champ Base-URL."
+      "message": "Entrez le préfixe de l'URL pour changer la couleur de la barre supérieure de Business Central.\nVous pouvez ajouter plusieurs URL. Par défaut, l'URL est séparée au premier '?'.\nCependant, vous pouvez librement choisir jusqu'à quel caractère l'URL doit être reconnue.\nIl suffit de copier le début de l'URL dans le champ Base-URL.\nEn cliquant sur la lune, vous pouvez activer le mode sombre."
     }
 }
