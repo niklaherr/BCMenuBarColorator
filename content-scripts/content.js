@@ -9,7 +9,7 @@
             if (url.startsWith(key)) {
                 if (longestMatch === null || key.length > longestMatch.length) {
                     longestMatch = key;
-                    const productMenuBar = document.querySelector('[id=product-menu-bar]');
+                    const productMenuBar = document.querySelector('[id=product-menu-bar], [id=O365_NavHeader]');
                     if (productMenuBar) {
                         productMenuBar.style.backgroundColor = value[0];
                     }
@@ -45,7 +45,7 @@
     chrome.runtime.onMessage.addListener((message) => {
         if (message.action === 'updateColor') {
             applyDarkMode(message.darkMode); // Apply the dark mode state
-            const productMenuBar = document.querySelector('[id=product-menu-bar]');
+            const productMenuBar = document.querySelector('[id=product-menu-bar], [id=O365_NavHeader]');
             if (productMenuBar) {
                 productMenuBar.style.backgroundColor = message.color;
             }
@@ -56,7 +56,7 @@
 
     function refreshStyles() {
         chrome.storage.sync.get('url_dict', (data) => {
-            const productMenuBar = document.querySelector('[id=product-menu-bar]');
+            const productMenuBar = document.querySelector('[id=product-menu-bar], [id=O365_NavHeader]');
             const url_dict = data.url_dict || {};
             let matched = false;
             for (const [key, value] of Object.entries(url_dict)) {
