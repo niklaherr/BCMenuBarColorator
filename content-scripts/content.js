@@ -40,15 +40,13 @@
                 html {
                     filter: invert(1) hue-rotate(180deg) contrast(0.9) brightness(1.1);
                 }
-            
+
                 img,
                 video,
                 canvas,
-                [style*="background-image"],
-                #player,
-                .html5-video-player,
-                .video-stream {
+                [style*="background-image"] {
                     filter: invert(1) hue-rotate(180deg) contrast(1.0) brightness(1.0) !important;
+                    border: 4px solid red !important;
                 }
             `;
             iframeDoc.documentElement.appendChild(style);
