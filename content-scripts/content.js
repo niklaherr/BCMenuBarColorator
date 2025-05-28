@@ -46,7 +46,6 @@
                 canvas,
                 [style*="background-image"] {
                     filter: invert(1) hue-rotate(180deg) contrast(1.0) brightness(1.0) !important;
-                    border: 4px solid red !important;
                 }
             `;
             iframeDoc.documentElement.appendChild(style);
