@@ -20,21 +20,37 @@
     }
 
     function applyDarkMode(darkModeOn) {
+        const iframe = document.querySelector('iframe');
+    
+        if (!iframe || !iframe.contentDocument) {
+            console.warn('Dark mode: iframe not found or not accessible.');
+            return;
+        }
+    
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    
         if (darkModeOn) {
-            console.log('Dark mode on');
-            if (document.getElementById('dark-mode-style')) {
+            console.log('Dark mode on (inside iframe)');
+            if (iframeDoc.getElementById('dark-mode-style')) {
                 return;
             }
-            const style = document.createElement('style');
+            const style = iframeDoc.createElement('style');
             style.id = 'dark-mode-style';
             style.textContent = `
-                .designer {
+                html {
                     filter: invert(1) hue-rotate(180deg) contrast(0.9) brightness(1.1);
                 }
+
+                img,
+                video,
+                canvas,
+                [style*="background-image"] {
+                    filter: invert(1) hue-rotate(180deg) contrast(1.0) brightness(1.0) !important;
+                }
             `;
-            document.documentElement.appendChild(style);
+            iframeDoc.documentElement.appendChild(style);
         } else {
-            const style = document.getElementById('dark-mode-style');
+            const style = iframeDoc.getElementById('dark-mode-style');
             if (style) {
                 style.remove();
             }
