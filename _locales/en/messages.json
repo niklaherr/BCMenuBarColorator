@@ -3,7 +3,7 @@
       "message": "Change the color of the Business Central Bar on top for different environments and never mix them up again!"
     },
     "extensionNameLbl": {
-      "message": "BC Menu-Bar Colorator"
+      "message": "BC Colors & Dark Mode"
     },
     "EnterURLLbl": {
       "message": "Enter URL prefix"
@@ -18,6 +18,6 @@
       "message": "Saved URLs with Colors"
     },
     "helpTextLbl": {
-      "message": "Enter the URL prefix to change the color of the Business Central top bar.\nYou can add multiple URLs. By default, the URL is separated at the first '?'.\nHowever, you can freely choose up to which character the URL should be recognized.\nJust copy the start of the URL into the Base-URL field.\nBy clicking the moon, you can activate the dark mode."
+      "message": "Enter the URL prefix to change the color of the Business Central top bar.\nYou can add multiple URLs. By default, the URL is separated at the first '?'.\nHowever, you can freely choose up to which character the URL should be recognized.\nJust copy the start of the URL into the Base-URL field.\n\n✨New in Version 3:✨\nBy clicking the moon, you can activate the dark mode.\nAlso, the extension is now available in Chrome!"
     }
 }
