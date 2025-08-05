@@ -18,6 +18,6 @@
       "message": "Gespeicherte URLs mit Farben"
     },
     "helpTextLbl": {
-      "message": "Geben Sie den URL-Präfix ein, um die Farbe der oberen Business Central-Leiste zu ändern.\nSie können mehrere URLs hinzufügen. Voreingestellt wird die URL bei dem ersten '?' getrennt.\nSie können aber frei wählen, bis zu welchem Zeichen die URL erkannt werden soll.\nKopieren Sie den Start der URL bis zu einem beliebigen Zeichen in das Base-URL Feld.\n\n✨Neu in Version 3:✨\nDurch Klicken auf den Mond können Sie den Dark Mode aktivieren.\nAußerdem ist die Erweiterung jetzt auch für Chrome verfügbar!"
+      "message": "Geben Sie den URL-Präfix ein, um die Farbe der oberen Business Central-Leiste zu ändern.\nSie können mehrere URLs hinzufügen. Voreingestellt wird die URL bei dem ersten '?' getrennt. Sie können aber frei wählen, bis zu welchem Zeichen die URL erkannt werden soll.\nKopieren Sie den Start der URL bis zu einem beliebigen Zeichen in das Base-URL Feld.\n\n✨Neu in Version 3.3:✨\n Icons färben sich korrekt, passende Hover-Effekte, User-Avatar geschützt, neuer PRODUKTIV-Button, kompakteres Popup-Design"
     }
 }
